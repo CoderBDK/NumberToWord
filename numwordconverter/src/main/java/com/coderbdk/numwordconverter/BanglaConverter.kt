@@ -3,8 +3,7 @@ package com.coderbdk.numwordconverter
 internal class BanglaConverter : Converter() {
 
     private val numberUnits = arrayOf("", "", "শত", " ", "হাজার", " ", "লক্ষ", "কোটি")
-    private val numberWordsArray =
-        arrayOf("শূন্য", "এক", "দুই", "তিন", "চার", "পাঁচ", "ছয়", "সাত", "আট", "নয়", "দশ")
+    private val numberWordsArray = Constants.numberWordsBangla
 
     init {
         numberUnits.reverse()

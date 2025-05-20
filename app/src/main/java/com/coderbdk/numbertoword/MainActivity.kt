@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.coderbdk.numbertoword.ui.theme.NumberToWordTheme
+import com.coderbdk.numwordconverter.NumberWordConverter
+import com.coderbdk.numwordconverter.Type
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +34,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    val r = NumberWordConverter(Type.BANGLA).numberToWords(1245890333)
     Text(
-        text = "Hello $name!",
+        text = "Hello $r!",
         modifier = modifier
     )
 }
