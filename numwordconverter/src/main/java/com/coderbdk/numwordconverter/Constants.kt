@@ -16,4 +16,25 @@ object Constants {
             )
 
     val numberWordsMapBangla: Map<Int, String> = numberWordsBangla.withIndex().associate { it.index to it.value }
+
+    private val enUnitWords = arrayOf("Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten")
+    private val enTeenWords = arrayOf( "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen")
+    private val enTensWords = arrayOf("Ten","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety")
+
+    val numberWordsEnglish = Array(100) { index ->
+        when {
+            index <= 10 -> enUnitWords[index]
+            index in 11..19 -> enTeenWords[index - 11]
+            index % 10 == 0 -> enTensWords[index / 10 - 1]
+            index in 21..99 -> {
+                val tens = enTensWords[index / 10 - 1]
+                val units = enUnitWords[index % 10]
+                "$tens-$units"
+            }
+            else -> {
+                ""
+            }
+        }
+    }
+    val numberWordsMapEnglish: Map<Int, String> = numberWordsEnglish.withIndex().associate { it.index to it.value }
 }

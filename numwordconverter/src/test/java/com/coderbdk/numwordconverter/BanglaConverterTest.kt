@@ -5,16 +5,16 @@ import org.junit.Assert.assertEquals
 
 class BanglaConverterTest {
 
+    private val converter = BanglaConverter()
+
     @Test
     fun test_10101101() {
-        val converter = BanglaConverter()
         val result = converter.convertToWords(10101101)
         assertEquals("এক কোটি এক লক্ষ এক হাজার এক শত এক", result)
     }
 
     @Test
     fun test_19839289() {
-        val converter = BanglaConverter()
         val result = converter.convertToWords(19839289)
         assertEquals(
             "${Constants.numberWordsMapBangla[1]} কোটি " +

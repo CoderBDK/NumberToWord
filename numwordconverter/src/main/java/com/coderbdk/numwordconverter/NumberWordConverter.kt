@@ -11,7 +11,7 @@ class NumberWordConverter(converterType: Type) {
         }
 
         Type.ENGLISH -> {
-            BanglaConverter()
+            EnglishConverter()
         }
     }
 
