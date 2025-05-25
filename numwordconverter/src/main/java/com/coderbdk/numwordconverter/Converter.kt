@@ -17,7 +17,12 @@ abstract class Converter(size: Int = 8) {
         numberPlaces.fill(0)
     }
 
-    protected fun transform(numberPlaces: IntArray, srcIndex: Int, dstIndex: Int, factor: Int = 10) {
+    protected fun transform(
+        numberPlaces: IntArray,
+        srcIndex: Int,
+        dstIndex: Int,
+        factor: Int = 10
+    ) {
         numberPlaces[dstIndex] = numberPlaces[srcIndex] + factor * numberPlaces[dstIndex]
         numberPlaces[srcIndex] = -1
     }

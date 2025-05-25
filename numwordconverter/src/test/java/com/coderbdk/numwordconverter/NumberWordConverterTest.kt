@@ -25,31 +25,39 @@ class NumberWordConverterTest {
         val r = banglaConverter.numberToWords(1_10_09_701)
         assertEquals(r, "এক কোটি দশ লক্ষ নয় হাজার সাত শত এক")
     }
+
     @Test
     fun numberToWords_english_30() {
         val r = englishConverter.numberToWords(30)
-        assertEquals(r,"Thirty")
+        assertEquals(r, "Thirty")
     }
+
     @Test
     fun numberToWords_english_31() {
         val r = englishConverter.numberToWords(31)
-        assertEquals(r,"Thirty-One")
+        assertEquals(r, "Thirty-One")
     }
+
     @Test
     fun numberToWords_english_331() {
         val r = englishConverter.numberToWords(331)
-        assertEquals(r,"Three Hundred Thirty-One")
+        assertEquals(r, "Three Hundred Thirty-One")
     }
+
     @Test
     fun numberToWords_english_International_1991999101() {
         val r = englishInternationConverter.numberToWords(1991999101)
-        assertEquals(r,"One Billion Nine Hundred Ninety-One Million Nine Hundred Ninety-Nine Thousand One Hundred One")
+        assertEquals(
+            r,
+            "One Billion Nine Hundred Ninety-One Million Nine Hundred Ninety-Nine Thousand One Hundred One"
+        )
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun numberToWords_zero_throwsException() {
         banglaConverter.numberToWords(0)
     }
+
     @Test(expected = IllegalArgumentException::class)
     fun numberToWords_negative_throwsException() {
         banglaConverter.numberToWords(-1)

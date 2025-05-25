@@ -1,7 +1,7 @@
 package com.coderbdk.numwordconverter
 
-import org.junit.Test
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class BanglaConverterTest {
 

@@ -1,7 +1,8 @@
 package com.coderbdk.numwordconverter
 
 internal class EnglishInternationalConverter : Converter(12) {
-    private val numberUnits = arrayOf("", "", "Hundred", "", "", "Thousand", "", "", "Million", "", "", "Billion")
+    private val numberUnits =
+        arrayOf("", "", "Hundred", "", "", "Thousand", "", "", "Million", "", "", "Billion")
     private val englishConverter by lazy { EnglishConverter() }
 
     init {
