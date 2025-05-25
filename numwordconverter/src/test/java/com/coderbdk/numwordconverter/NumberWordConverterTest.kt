@@ -45,4 +45,13 @@ class NumberWordConverterTest {
         val r = englishInternationConverter.numberToWords(1991999101)
         assertEquals(r,"One Billion Nine Hundred Ninety-One Million Nine Hundred Ninety-Nine Thousand One Hundred One")
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun numberToWords_zero_throwsException() {
+        banglaConverter.numberToWords(0)
+    }
+    @Test(expected = IllegalArgumentException::class)
+    fun numberToWords_negative_throwsException() {
+        banglaConverter.numberToWords(-1)
+    }
 }
