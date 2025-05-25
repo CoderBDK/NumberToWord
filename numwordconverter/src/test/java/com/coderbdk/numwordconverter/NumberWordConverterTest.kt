@@ -54,11 +54,6 @@ class NumberWordConverterTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun numberToWords_zero_throwsException() {
-        banglaConverter.numberToWords(0)
-    }
-
-    @Test(expected = IllegalArgumentException::class)
     fun numberToWords_negative_throwsException() {
         banglaConverter.numberToWords(-1)
     }

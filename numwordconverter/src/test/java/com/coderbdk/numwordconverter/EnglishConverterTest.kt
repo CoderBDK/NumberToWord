@@ -7,6 +7,12 @@ class EnglishConverterTest {
     private val converter = EnglishConverter()
 
     @Test
+    fun test_0() {
+        val result = converter.convertToWords(0)
+        assertEquals("Zero", result)
+    }
+
+    @Test
     fun test_1() {
         val result = converter.convertToWords(1)
         assertEquals("One", result)

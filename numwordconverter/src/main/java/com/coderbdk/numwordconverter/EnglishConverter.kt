@@ -17,6 +17,8 @@ internal class EnglishConverter : Converter() {
 
     override fun convertToWords(number: Int): String {
 
+        if (number == 0) return numberWordsArray[0]
+
         val buffer = StringBuffer()
 
         reset()

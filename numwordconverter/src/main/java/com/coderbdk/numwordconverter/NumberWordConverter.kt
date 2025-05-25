@@ -20,7 +20,7 @@ class NumberWordConverter(converterType: Type) {
     }
 
     fun numberToWords(number: Int): String {
-        require(number > 0) { "Only positive integers (greater than 0) are supported." }
+        require(number >= 0) { "Only non-negative integers are supported." }
         return converter.convertToWords(number)
     }
 

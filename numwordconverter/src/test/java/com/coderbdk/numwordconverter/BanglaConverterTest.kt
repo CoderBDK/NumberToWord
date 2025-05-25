@@ -6,6 +6,11 @@ import org.junit.Test
 class BanglaConverterTest {
 
     private val converter = BanglaConverter()
+    @Test
+    fun test_0() {
+        val result = converter.convertToWords(0)
+        assertEquals("শূন্য", result)
+    }
 
     @Test
     fun test_10101101() {
