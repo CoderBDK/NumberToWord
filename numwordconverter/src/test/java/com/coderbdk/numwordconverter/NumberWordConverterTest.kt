@@ -6,6 +6,7 @@ import org.junit.Test
 class NumberWordConverterTest {
     private val banglaConverter = NumberWordConverter(Type.BANGLA)
     private val englishConverter = NumberWordConverter(Type.ENGLISH)
+    private val englishInternationConverter = NumberWordConverter(Type.ENGLISH_INTERNATIONAL)
 
     @Test
     fun numberToWords_bangla_1010() {
@@ -38,5 +39,10 @@ class NumberWordConverterTest {
     fun numberToWords_english_331() {
         val r = englishConverter.numberToWords(331)
         assertEquals(r,"Three Hundred Thirty-One")
+    }
+    @Test
+    fun numberToWords_english_International_1991999101() {
+        val r = englishInternationConverter.numberToWords(1991999101)
+        assertEquals(r,"One Billion Nine Hundred Ninety-One Million Nine Hundred Ninety-Nine Thousand One Hundred One")
     }
 }

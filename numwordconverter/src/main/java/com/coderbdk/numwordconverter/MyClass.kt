@@ -19,4 +19,9 @@ fun main() {
 
     // Output: Nine Crore Nine Lakh Nine Thousand Nine Hundred Nine
     println(enConverter.numberToWords(90909909))
+
+
+    // Output: One Billion Nine Hundred Ninety-One Million Nine Hundred Ninety-Nine Thousand One Hundred One
+    val enInternationalConverter = NumberWordConverter(Type.ENGLISH_INTERNATIONAL)
+    println(enInternationalConverter.numberToWords(1991999101))
 }

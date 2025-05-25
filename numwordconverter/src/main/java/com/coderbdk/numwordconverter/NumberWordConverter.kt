@@ -1,7 +1,7 @@
 package com.coderbdk.numwordconverter
 
 enum class Type {
-    BANGLA, ENGLISH
+    BANGLA, ENGLISH, ENGLISH_INTERNATIONAL
 }
 
 class NumberWordConverter(converterType: Type) {
@@ -12,6 +12,10 @@ class NumberWordConverter(converterType: Type) {
 
         Type.ENGLISH -> {
             EnglishConverter()
+        }
+
+        Type.ENGLISH_INTERNATIONAL -> {
+            EnglishInternationalConverter()
         }
     }
 
