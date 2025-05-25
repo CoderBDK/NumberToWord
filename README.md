@@ -4,8 +4,9 @@ A lightweight Kotlin library for converting numbers to words. Currently supports
 
 ## Features
 
-- Convert integer numbers to Bangla words
-- Convert integer numbers to English words
+- Convert numbers to words:
+  - Bangla
+  - English
 
 ## Installation
 
