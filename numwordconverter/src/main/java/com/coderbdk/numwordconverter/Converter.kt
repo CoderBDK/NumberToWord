@@ -1,9 +1,9 @@
 package com.coderbdk.numwordconverter
 
 
-abstract class Converter(size: Int = 8) {
+abstract class Converter(val size: Int = 8) {
 
-    protected val numberPlaces = IntArray(size) { 0 }
+    protected val numberPlaces = IntArray(size)
 
     protected fun buildNumberPlace(number: Int) {
         var num = number
