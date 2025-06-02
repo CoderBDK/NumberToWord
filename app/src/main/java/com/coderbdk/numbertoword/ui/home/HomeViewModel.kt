@@ -7,6 +7,7 @@ import com.coderbdk.numwordconverter.Type
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import java.util.Locale
 
 data class UiState(
     val expandedType: Boolean = false,
@@ -21,6 +22,16 @@ data class UiState(
 class HomeViewModel : ViewModel() {
 
     private val converterTypes = Type.entries
+
+    val menuTypes = converterTypes.map { type ->
+        type.name.lowercase().split("_").joinToString(" ") { word ->
+            word.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(
+                    Locale.ROOT
+                ) else it.toString()
+            }
+        }
+    }
 
     private val bnConverter: NumberWordConverter = NumberWordConverter(Type.BANGLA)
     private val enConverter: NumberWordConverter = NumberWordConverter(Type.ENGLISH)

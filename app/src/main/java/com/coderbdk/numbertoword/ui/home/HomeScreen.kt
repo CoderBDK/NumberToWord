@@ -26,6 +26,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
@@ -44,13 +45,13 @@ import com.coderbdk.numwordconverter.MaxLimit
 @Composable
 fun HomeScreen(
     uiState: UiState,
+    menuTypes: List<String>,
     showType: (Boolean) -> Unit,
     onTypeSelected: (Int) -> Unit,
     onInputValueChange: (String) -> Unit,
     onValueSwap: () -> Unit,
     convert: () -> Unit,
 ) {
-    val menuTypes = listOf("Bangla", "English", "Internation English")
     Column(
         Modifier
             .fillMaxSize()
@@ -226,6 +227,7 @@ private fun HomePreview() {
                 expandedType = false,
                 maxLimit = MaxLimit(8, Int.MAX_VALUE)
             ),
+            menuTypes = listOf("Bangla", "English"),
             showType = { },
             onTypeSelected = {},
             onInputValueChange = {},
