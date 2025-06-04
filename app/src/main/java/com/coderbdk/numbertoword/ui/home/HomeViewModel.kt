@@ -7,6 +7,7 @@ import com.coderbdk.numwordconverter.Type
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import java.text.NumberFormat
 import java.util.Locale
 
 data class UiState(
@@ -46,6 +47,11 @@ class HomeViewModel : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
 
+    private val banglaNumberFormat = NumberFormat.getInstance(Locale.forLanguageTag("bn"))
+    private val englishIndianFormat = NumberFormat.getInstance(Locale.forLanguageTag("en-IN"))
+    private val englishInternationalFormat = NumberFormat.getInstance(Locale.ENGLISH)
+
+
     private fun getMaxLimit(converterType: Type): MaxLimit {
         return when (converterType) {
             Type.BANGLA -> {
@@ -71,23 +77,27 @@ class HomeViewModel : ViewModel() {
     }
 
     fun onTypeSelected(index: Int) {
+
+        if (uiState.value.isValueSwapped) return
+
         _uiState.update {
             it.copy(
                 selectedType = index,
-                maxLimit = getMaxLimit(converterTypes[index])
+                maxLimit = getMaxLimit(converterTypes[index]),
             )
+
         }
     }
 
-    fun onInputValueChange(input: String) {
-        if (input.isEmpty()) {
+    fun onInputValueChange(rawInput: String) {
+        if (rawInput.isEmpty()) {
             _uiState.update {
                 it.copy(inputValue = "", message = null)
             }
             return
         }
         if (uiState.value.isValueSwapped) return
-
+        val input = rawInput.replace(",", "")
         val isValidDigits = input.all { it.isDigit() }
 
         if (isValidDigits && input.isNotEmpty()) {
@@ -95,11 +105,12 @@ class HomeViewModel : ViewModel() {
             val maxValue = uiState.value.maxLimit.maxValue
 
             val withinDigitLimit = input.length <= maxDigits
-            val withinValueLimit = input.toIntOrNull()?.let { it <= maxValue } ?: false
+            val value = input.toIntOrNull()
+            val withinValueLimit = value?.let { it <= maxValue } ?: false
 
             if (withinDigitLimit && withinValueLimit) {
                 _uiState.update {
-                    it.copy(inputValue = input, message = null)
+                    it.copy(inputValue = formatNumberWithCommas(value ?: 0), message = null)
                 }
                 return
             } else {
@@ -117,6 +128,14 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    private fun formatNumberWithCommas(input: Int): String {
+        return when (converterTypes[uiState.value.selectedType]) {
+            Type.BANGLA -> banglaNumberFormat.format(input)
+            Type.ENGLISH -> englishIndianFormat.format(input)
+            Type.ENGLISH_INTERNATIONAL -> englishInternationalFormat.format(input)
+        }
+    }
+
     fun onValueSwap() {
 
     }
@@ -128,11 +147,15 @@ class HomeViewModel : ViewModel() {
         }
         try {
             convertNumberToWord()
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             _uiState.update {
                 it.copy(message = e.message)
             }
         }
+    }
+
+    private fun String.toIntWithoutCommas(): Int {
+        return replace(",", "").toInt()
     }
 
     private fun convertNumberToWord() {
@@ -140,7 +163,7 @@ class HomeViewModel : ViewModel() {
             Type.BANGLA -> {
                 _uiState.update {
                     it.copy(
-                        outputValue = bnConverter.numberToWords(it.inputValue.toInt())
+                        outputValue = bnConverter.numberToWords(it.inputValue.toIntWithoutCommas())
                     )
                 }
             }
@@ -148,7 +171,7 @@ class HomeViewModel : ViewModel() {
             Type.ENGLISH -> {
                 _uiState.update {
                     it.copy(
-                        outputValue = enConverter.numberToWords(it.inputValue.toInt())
+                        outputValue = enConverter.numberToWords(it.inputValue.toIntWithoutCommas())
                     )
                 }
             }
@@ -156,7 +179,7 @@ class HomeViewModel : ViewModel() {
             Type.ENGLISH_INTERNATIONAL -> {
                 _uiState.update {
                     it.copy(
-                        outputValue = enInternationalConverter.numberToWords(it.inputValue.toInt())
+                        outputValue = enInternationalConverter.numberToWords(it.inputValue.toIntWithoutCommas())
                     )
                 }
             }
