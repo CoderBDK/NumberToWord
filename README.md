@@ -10,10 +10,11 @@ A lightweight Kotlin library for converting numbers to words. Currently supports
 ## 📸 Preview
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f9c60920-0e92-4bf3-9d53-5fd8361dfc77" alt="Screenshot 3" width="300" />
-  <img src="https://github.com/user-attachments/assets/cfaba983-19e3-4e5a-baac-c7ec428e68fc" alt="Screenshot 3" width="300" />
-  <img src="https://github.com/user-attachments/assets/1e2825fb-d27f-47e3-9b7c-e7a13d85ab93" alt="Screenshot 3" width="300" />
+  <img src="https://github.com/user-attachments/assets/567e2159-1420-4c69-8a1c-4c38f3f21f4a" alt="Screenshot 3" width="300" />
+  <img src="https://github.com/user-attachments/assets/675b0d3b-e67b-4807-9bc8-ff6768c3045d" alt="Screenshot 3" width="300" />
+  <img src="https://github.com/user-attachments/assets/8df30afb-3494-4a7e-998d-77d67c589637" alt="Screenshot 3" width="300" />
 </div>
+
 
 ## Installation
 
