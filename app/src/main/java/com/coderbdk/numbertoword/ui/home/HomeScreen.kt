@@ -34,6 +34,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,7 +49,7 @@ fun HomeScreen(
     menuTypes: List<String>,
     showType: (Boolean) -> Unit,
     onTypeSelected: (Int) -> Unit,
-    onInputValueChange: (String) -> Unit,
+    onInputValueChange: (TextFieldValue) -> Unit,
     onValueSwap: () -> Unit,
     convert: () -> Unit,
 ) {
@@ -142,10 +143,10 @@ fun TypeDropdownMenu(
 
 @Composable
 fun HomeScreenContent(
-    inputValue: String,
-    outputValue: String,
+    inputValue: TextFieldValue,
+    outputValue: TextFieldValue,
     message: String?,
-    onValueChange: (String) -> Unit,
+    onValueChange: (TextFieldValue) -> Unit,
     onValueSwap: () -> Unit,
 ) {
     Box {
@@ -167,7 +168,7 @@ fun HomeScreenContent(
 
                         }
                     ) {
-                        Icon(painter = painterResource(R.drawable.outline_content_copy_24), "copy")
+                        Icon(painter = painterResource(R.drawable.baseline_content_paste_24), "copy")
                     }
                 },
                 shape = RoundedCornerShape(16.dp),

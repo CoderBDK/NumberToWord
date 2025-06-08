@@ -1,5 +1,7 @@
 package com.coderbdk.numbertoword.ui.home
 
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import com.coderbdk.numwordconverter.MaxLimit
 import com.coderbdk.numwordconverter.NumberWordConverter
@@ -13,8 +15,8 @@ import java.util.Locale
 data class UiState(
     val expandedType: Boolean = false,
     val selectedType: Int = 0,
-    val inputValue: String = "",
-    val outputValue: String = "",
+    val inputValue: TextFieldValue = TextFieldValue(),
+    val outputValue: TextFieldValue = TextFieldValue(),
     val message: String? = null,
     val isValueSwapped: Boolean = false,
     val maxLimit: MaxLimit
@@ -89,15 +91,20 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun onInputValueChange(rawInput: String) {
-        if (rawInput.isEmpty()) {
+    fun onInputValueChange(rawInput: TextFieldValue) {
+        if (rawInput.text.isEmpty()) {
             _uiState.update {
-                it.copy(inputValue = "", message = null)
+                it.copy(inputValue = it.inputValue.copy(text = ""), message = null)
             }
             return
         }
+        changeNumberInputValue(rawInput)
+    }
+
+    private fun changeNumberInputValue(rawInput: TextFieldValue) {
         if (uiState.value.isValueSwapped) return
-        val input = rawInput.replace(",", "")
+
+        val input = rawInput.text.replace(",", "")
         val isValidDigits = input.all { it.isDigit() }
 
         if (isValidDigits && input.isNotEmpty()) {
@@ -109,8 +116,19 @@ class HomeViewModel : ViewModel() {
             val withinValueLimit = value?.let { it <= maxValue } ?: false
 
             if (withinDigitLimit && withinValueLimit) {
+                val formatted = formatNumberWithCommas(value ?: 0)
                 _uiState.update {
-                    it.copy(inputValue = formatNumberWithCommas(value ?: 0), message = null)
+                    it.copy(
+                        inputValue = it.inputValue.copy(
+                            text = formatted,
+                            selection = TextRange(
+                                calculateNumberCursorPosition(
+                                    rawInput,
+                                    formatted
+                                )
+                            )
+                        ), message = null
+                    )
                 }
                 return
             } else {
@@ -128,6 +146,19 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    private fun calculateNumberCursorPosition(rawInput: TextFieldValue, formatted: String): Int {
+        val oldText = rawInput.text
+        val oldCommaCount = oldText.count { it == ',' }
+        val newCommaCount = formatted.count { it == ',' }
+
+        val commaDiff = newCommaCount - oldCommaCount
+        val oldCursor = rawInput.selection.end
+
+        val newCursorPos = oldCursor + commaDiff
+
+        return newCursorPos.coerceIn(0, formatted.length)
+    }
+
     private fun formatNumberWithCommas(input: Int): String {
         return when (converterTypes[uiState.value.selectedType]) {
             Type.BANGLA -> banglaNumberFormat.format(input)
@@ -141,7 +172,7 @@ class HomeViewModel : ViewModel() {
     }
 
     fun convert() {
-        if (uiState.value.inputValue.isEmpty()) return
+        if (uiState.value.inputValue.text.isEmpty()) return
         if (uiState.value.isValueSwapped) {
             return
         }
@@ -159,30 +190,17 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun convertNumberToWord() {
-        when (converterTypes[uiState.value.selectedType]) {
-            Type.BANGLA -> {
-                _uiState.update {
-                    it.copy(
-                        outputValue = bnConverter.numberToWords(it.inputValue.toIntWithoutCommas())
-                    )
-                }
-            }
-
-            Type.ENGLISH -> {
-                _uiState.update {
-                    it.copy(
-                        outputValue = enConverter.numberToWords(it.inputValue.toIntWithoutCommas())
-                    )
-                }
-            }
-
-            Type.ENGLISH_INTERNATIONAL -> {
-                _uiState.update {
-                    it.copy(
-                        outputValue = enInternationalConverter.numberToWords(it.inputValue.toIntWithoutCommas())
-                    )
-                }
-            }
+        val converter = when (converterTypes[uiState.value.selectedType]) {
+            Type.BANGLA -> bnConverter
+            Type.ENGLISH -> enConverter
+            Type.ENGLISH_INTERNATIONAL -> enInternationalConverter
+        }
+        _uiState.update {
+            it.copy(
+                outputValue = it.inputValue.copy(
+                    text = converter.numberToWords(it.inputValue.text.toIntWithoutCommas())
+                )
+            )
         }
     }
 
