@@ -4,7 +4,9 @@ internal class BanglaConverter : Converter() {
 
     private val numberUnits = arrayOf("", "", "শত", " ", "হাজার", " ", "লক্ষ", "কোটি")
     private val numberWordsArray = Constants.numberWordsBangla
-
+    override var parser: Parser
+        get() = TODO("Not yet implemented")
+        set(value) {}
     init {
         numberUnits.reverse()
     }

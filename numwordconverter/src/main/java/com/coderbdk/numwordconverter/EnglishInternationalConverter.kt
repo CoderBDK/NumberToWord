@@ -4,7 +4,9 @@ internal class EnglishInternationalConverter : Converter(12) {
     private val numberUnits =
         arrayOf("", "", "Hundred", "", "", "Thousand", "", "", "Million", "", "", "Billion")
     private val englishConverter by lazy { EnglishConverter() }
-
+    override var parser: Parser
+        get() = TODO("Not yet implemented")
+        set(value) {}
     init {
         numberUnits.reverse()
     }

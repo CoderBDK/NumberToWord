@@ -3,7 +3,7 @@ package com.coderbdk.numwordconverter
 internal class EnglishConverter : Converter() {
     private val numberUnits = arrayOf("", "", "Hundred", " ", "Thousand", " ", "Lakh", "Crore")
     private val numberWordsArray = Constants.numberWordsEnglish
-
+    override var parser: Parser = EnglishParser()
     init {
         numberUnits.reverse()
     }
@@ -42,6 +42,7 @@ internal class EnglishConverter : Converter() {
     }
 
     override fun convertFromWords(words: String): Int {
-        return 0
+        val tokens = parser.tokenize(words)
+        return parser.parse(tokens)
     }
 }

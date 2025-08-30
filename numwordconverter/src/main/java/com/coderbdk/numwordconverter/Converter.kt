@@ -1,9 +1,23 @@
 package com.coderbdk.numwordconverter
 
+data class Token(
+    val type: Type,
+    val value: Int
+) {
+    enum class Type {
+        Number, Unit
+    }
+}
+
+interface Parser {
+    fun tokenize(input: String): List<Token>
+    fun parse(tokens: List<Token>): Int
+}
 
 abstract class Converter(val size: Int = 8) {
 
     protected val numberPlaces = IntArray(size)
+    protected abstract var parser: Parser
 
     protected fun buildNumberPlace(number: Int) {
         var num = number
@@ -29,5 +43,4 @@ abstract class Converter(val size: Int = 8) {
 
     abstract fun convertToWords(number: Int): String
     abstract fun convertFromWords(words: String): Int
-
 }
