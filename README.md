@@ -44,6 +44,8 @@ fun main() {
     val enConverter = NumberWordConverter(Type.ENGLISH)
     // Output: Nine Crore Nine Lakh Nine Thousand Nine Hundred Nine
     println(enConverter.numberToWords(90909909))
+    // Output: 90909909
+    println(enConverter.wordsToNumber("Nine Crore Nine Lakh Nine Thousand Nine Hundred Nine"))
 
     val enInternationalConverter = NumberWordConverter(Type.ENGLISH_INTERNATIONAL)
    // Output: One Billion Nine Hundred Ninety-One Million Nine Hundred Ninety-Nine Thousand One Hundred One
